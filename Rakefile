@@ -7,7 +7,7 @@ RSpec::Core::RakeTask.new(:spec) do |task|
 end
 
 Cucumber::Rake::Task.new(:cucumber) do |task|
-  task.cucumber_opts = "--tags ~@fail"
+  task.cucumber_opts = "--tags 'not @fail'"
 end
 
 Cucumber::Rake::Task.new(:negative_cucumber) do |task|

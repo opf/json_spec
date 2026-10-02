@@ -57,7 +57,8 @@ module JsonSpec
 
       private
         def scrub(json, path = nil)
-          generate_normalized_json(exclude_keys(parse_json(json, path))).chomp + "\n"
+          ruby = parse_json(json, path)
+          JsonSpec::Normalization.normalize(ruby, excluded_keys: excluded_keys).chomp + "\n"
         end
     end
   end

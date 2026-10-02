@@ -47,6 +47,20 @@ describe JsonSpec::Helpers do
       normalize_json(%({"json":["spec"]})).should eq normalized.chomp
     end
 
+    it "sorts keys" do
+      normalize_json(%({"b":1,"a":2})).should eq normalize_json(%({"a":2,"b":1}))
+    end
+
+    it "keeps excluded keys" do
+      normalize_json(%({"id":1})).should_not eq normalize_json(%({}))
+    end
+
+    it "works when only the helpers are required" do
+      lib = File.expand_path("../../../lib", __FILE__)
+      script = %(require "json_spec/helpers"; print JsonSpec::Helpers.normalize_json("{}"))
+      IO.popen([RbConfig.ruby, "-I", lib, "-e", script], err: [:child, :out], &:read).should eq %({})
+    end
+
     it "normalizes at a path" do
       normalize_json(%({"json":["spec"]}), "json/0").should eq %("spec")
     end
@@ -70,6 +84,10 @@ describe JsonSpec::Helpers do
 }
       JSON
       generate_normalized_json({"json" => ["spec"]}).should eq normalized.chomp
+    end
+
+    it "sorts keys" do
+      generate_normalized_json({"b" => 1, "a" => 2}).should eq generate_normalized_json({"a" => 2, "b" => 1})
     end
 
     it "generates a normalized JSON value" do

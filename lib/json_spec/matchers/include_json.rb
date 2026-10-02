@@ -16,11 +16,11 @@ module JsonSpec
         @actual_json = actual_json
 
         actual = parse_json(actual_json, @path)
-        expected = exclude_keys(parse_json(@expected_json))
+        expected = parse_json(@expected_json)
         case actual
-        when Hash then actual.values.map { |v| exclude_keys(v) }.include?(expected)
-        when Array then actual.map { |e| exclude_keys(e) }.include?(expected)
-        when String then actual.include?(expected)
+        when Hash then actual.values.map { |v| normalize(v) }.include?(normalize(expected))
+        when Array then actual.map { |e| normalize(e) }.include?(normalize(expected))
+        when String then String === expected && actual.include?(expected)
         else false
         end
       end
@@ -56,6 +56,11 @@ module JsonSpec
       def description
         message_with_path("include JSON")
       end
+
+      private
+        def normalize(ruby)
+          JsonSpec::Normalization.normalize(ruby, excluded_keys: excluded_keys)
+        end
     end
   end
 end

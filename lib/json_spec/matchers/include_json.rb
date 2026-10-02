@@ -48,12 +48,10 @@ module JsonSpec
       def failure_message
         message_with_path("Expected #{@actual_json} to include #{@expected_json}")
       end
-      alias :failure_message_for_should :failure_message
 
       def failure_message_when_negated
         message_with_path("Expected #{@actual_json} to not include #{@expected_json}")
       end
-      alias :failure_message_for_should_not :failure_message_when_negated
 
       def description
         message_with_path("include JSON")

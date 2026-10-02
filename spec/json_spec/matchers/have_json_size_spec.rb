@@ -25,14 +25,12 @@ describe JsonSpec::Matchers::HaveJsonSize do
     matcher = have_json_size(3)
     matcher.matches?(%([1,2]))
     matcher.failure_message.should            eq "Expected JSON value size to be 3, got 2"
-    matcher.failure_message_for_should.should eq "Expected JSON value size to be 3, got 2" # RSpec 2 interface
   end
 
   it "provides a failure message for negation" do
     matcher = have_json_size(3)
     matcher.matches?(%([1,2,3]))
     matcher.failure_message_when_negated.should   eq "Expected JSON value size to not be 3, got 3"
-    matcher.failure_message_for_should_not.should eq "Expected JSON value size to not be 3, got 3" # RSpec 2 interface
   end
 
   it "provides a description message" do

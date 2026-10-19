@@ -87,4 +87,9 @@ describe JsonSpec::Matchers::HaveJsonType do
       null.should have_json_type(:null)
     end
   end
+
+  it_behaves_like "a composable matcher" do
+    let(:matching) { have_json_type(Integer).at_path("foo") }
+    let(:not_matching) { have_json_type(Integer).at_path("bar") }
+  end
 end

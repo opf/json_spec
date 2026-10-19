@@ -108,4 +108,9 @@ describe JsonSpec::Matchers::BeJsonEql do
     JsonSpec.directory = files_path
     %({ "value" : "from_file" }).should be_json_eql.to_file("one.json")
   end
+
+  it_behaves_like "a composable matcher" do
+    let(:matching) { be_json_eql({ bar: [2, 3], foo: 1 }.to_json) }
+    let(:not_matching) { be_json_eql({ foo: 1, bar: [2, 4] }.to_json) }
+  end
 end

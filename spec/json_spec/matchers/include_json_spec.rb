@@ -93,4 +93,9 @@ describe JsonSpec::Matchers::IncludeJson do
     JsonSpec.directory = files_path
     %({"one":{"value":"from_file"},"four":{"five":6}}).should include_json.from_file("one.json")
   end
+
+  it_behaves_like "a composable matcher" do
+    let(:matching) { include_json([2, 3].to_json) }
+    let(:not_matching) { include_json([2, 4].to_json) }
+  end
 end

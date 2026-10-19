@@ -56,4 +56,9 @@ describe JsonSpec::Matchers::HaveJsonSize do
     expect { matcher.matches?(%({"id":1,"json":12345})) }.to raise_error(JsonSpec::EnumerableExpected,
                                                                            "Enumerable expected, got 12345")
   end
+
+  it_behaves_like "a composable matcher" do
+    let(:matching) { have_json_size(2).at_path("bar") }
+    let(:not_matching) { have_json_size(3).at_path("bar") }
+  end
 end

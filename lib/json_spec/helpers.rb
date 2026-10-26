@@ -1,4 +1,5 @@
 require "json"
+require "json_spec/normalization"
 
 module JsonSpec
   module Helpers
@@ -17,10 +18,7 @@ module JsonSpec
     end
 
     def generate_normalized_json(ruby)
-      case ruby
-      when Hash, Array then JSON.pretty_generate(ruby)
-      else ruby.to_json
-      end
+      JsonSpec::Normalization.normalize(ruby)
     end
 
     def load_json(relative_path)

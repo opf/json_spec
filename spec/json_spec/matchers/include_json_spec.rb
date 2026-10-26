@@ -51,6 +51,22 @@ describe JsonSpec::Matchers::IncludeJson do
     json.should include_json(%("json"))
   end
 
+  it "doesn't match a non-string in a string" do
+    %("json1").should_not include_json(%(1))
+  end
+
+  it "doesn't match an integer with an equal float" do
+    %([10.0]).should_not include_json(%(10))
+    %({"float":10.0}).should_not include_json(%(10))
+  end
+
+  it "matches alongside a number too large for a float" do
+    %([1,1e400]).should include_json(%(1))
+    %([1,1e400]).should_not include_json(%(2))
+    %({"one":1,"huge":1e400}).should include_json(%(1))
+    %({"one":1,"huge":1e400}).should_not include_json(%(2))
+  end
+
   it "matches at a path" do
     %({"one":{"two":[3,4]}}).should include_json(%([3,4])).at_path("one")
   end

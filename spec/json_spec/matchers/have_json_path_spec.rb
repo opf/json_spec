@@ -26,4 +26,9 @@ describe JsonSpec::Matchers::HaveJsonPath do
     matcher.matches?(%({"id":1,"json":"spec"}))
     matcher.description.should == %(have JSON path "json")
   end
+
+  it_behaves_like "a composable matcher" do
+    let(:matching) { have_json_path("bar") }
+    let(:not_matching) { have_json_path("baz") }
+  end
 end

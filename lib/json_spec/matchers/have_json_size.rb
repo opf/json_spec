@@ -3,6 +3,7 @@ module JsonSpec
     class HaveJsonSize
       include JsonSpec::Helpers
       include JsonSpec::Messages
+      include RSpec::Matchers::Composable
 
       def initialize(size)
         @expected = size

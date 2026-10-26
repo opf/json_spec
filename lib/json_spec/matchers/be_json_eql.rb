@@ -4,6 +4,7 @@ module JsonSpec
       include JsonSpec::Helpers
       include JsonSpec::Exclusion
       include JsonSpec::Messages
+      include RSpec::Matchers::Composable
 
       attr_reader :expected, :actual
 

@@ -3,6 +3,7 @@ module JsonSpec
     class HaveJsonType
       include JsonSpec::Helpers
       include JsonSpec::Messages
+      include RSpec::Matchers::Composable
 
       def initialize(type)
         @classes = type_to_classes(type)
